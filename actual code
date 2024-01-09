@@ -1,0 +1,42 @@
+import pygame
+import random
+pygame.init()  
+pygame.display.set_caption("snow")
+screen = pygame.display.set_mode((500, 500))
+screen.fill((28, 255, 89))
+clock = pygame.time.Clock() #set up clock
+
+#class---
+class snow:
+    def __init__(self,xpos,ypos):
+        self.xpos = xpos
+        self.ypos = ypos
+    def move (self):
+        self.xpos += random.randrange(-2, 3)
+        self.ypos += random.randrange(0, 3)
+        if self.ypos >500:
+            self.ypos = random.randrange(-200, 0)
+    def draw (self):
+        pygame.draw.circle(screen, (0,0,0),(self.xpos, self.ypos), 5,5)
+        
+snowbag = []
+for i in range(500):
+    snowbag.append(snow(random.randrange(0, 500), random.randrange(-500, 0)))
+
+while(1):
+    clock.tick(60)
+    
+    #move
+    for i in range(len(snowbag)):
+        snowbag[i].move()     
+
+    #render section
+    screen.fill((255,255,255))
+    
+    for i in range(len(snowbag)):
+        snowbag[i].draw()  
+    pygame.display.flip()
+    
+    
+pygame.quit()
+        
